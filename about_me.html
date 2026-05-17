@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About Me — Omar Faruk · Chemistry Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<svg class="mol-bg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="hex" x="0" y="0" width="80" height="92" patternUnits="userSpaceOnUse">
+      <polygon points="40,2 72,20 72,58 40,76 8,58 8,20" fill="none" stroke="#0d7377" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1440" height="900" fill="url(#hex)"/>
+  <circle cx="200" cy="200" r="12" fill="none" stroke="#0d7377" stroke-width="2"/>
+  <circle cx="200" cy="200" r="5" fill="#0d7377"/>
+  <line x1="200" y1="200" x2="340" y2="200" stroke="#0d7377" stroke-width="1.5"/>
+  <circle cx="340" cy="200" r="12" fill="none" stroke="#0d7377" stroke-width="2"/>
+  <circle cx="340" cy="200" r="5" fill="#0d7377"/>
+  <line x1="1060" y1="600" x2="990" y2="720" stroke="#c8a45a" stroke-width="1.5"/>
+  <circle cx="990" cy="720" r="7" fill="none" stroke="#c8a45a" stroke-width="1.5"/>
+</svg>
+
+<!-- ── NAVBAR ── -->
+<nav id="navbar">
+  <a href="index.html" class="logo">
+    <div class="logo-hex">
+      <svg viewBox="0 0 40 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 2L37 11.5V30.5L20 40L3 30.5V11.5L20 2Z" stroke="#0d7377" stroke-width="2" fill="rgba(13,115,119,.08)"/>
+        <text x="50%" y="58%" text-anchor="middle" dominant-baseline="middle" fill="#0d7377" font-size="14" font-weight="700" font-family="serif">O</text>
+      </svg>
+    </div>
+    <div class="logo-name">Omar Faruk<span>Chemistry Portfolio</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="education.html">Education</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="about_me.html" class="active">About Me</a></li>
+    <li><a href="index.html#connect" style="color:var(--teal);font-weight:600;">✉ Connect</a></li>
+  </ul>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html"><i class="fas fa-home" style="color:var(--teal);width:20px;text-align:center"></i> Home</a>
+  <a href="education.html"><i class="fas fa-graduation-cap" style="color:var(--teal);width:20px;text-align:center"></i> Education</a>
+  <a href="skills.html"><i class="fas fa-flask" style="color:var(--teal);width:20px;text-align:center"></i> Skills</a>
+  <a href="research.html"><i class="fas fa-microscope" style="color:var(--teal);width:20px;text-align:center"></i> Research</a>
+  <a href="about_me.html" class="active"><i class="fas fa-user" style="color:var(--teal);width:20px;text-align:center"></i> About Me</a>
+  <a href="index.html#connect"><i class="fas fa-envelope" style="color:var(--teal);width:20px;text-align:center"></i> Connect</a>
+</div>
+
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="section-label">About Me</div>
+    <div class="section-title">Who Is <span>Omar Faruk</span>?</div>
+    <p class="page-hero-desc">Chemistry undergraduate, content creator, and aspiring researcher — driven by curiosity and the pursuit of scientific understanding.</p>
+  </div>
+</div>
+
+<!-- ── ABOUT SECTION ── -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+
+    <div class="reveal">
+      <div class="section-label">My Story</div>
+      <div class="section-title" style="margin-bottom:0;">A Passion for <span>Molecular Science</span></div>
+      <p class="about-desc">I am a BSc Chemistry student at Gopalganj Science and Technology University with a deep passion for understanding the molecular world. My academic journey has been shaped by curiosity, analytical thinking, and a desire to apply chemistry to solve real-world problems.</p>
+      <p class="about-desc" style="margin-top:14px;">Outside the lab, I create educational content on YouTube to make chemistry accessible to everyone. I am eager to engage in internships, collaborative research, and opportunities that bridge academia with practical impact.</p>
+
+      <!-- Highlights -->
+      <div style="margin-top:28px;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:#e6f7f7;display:grid;place-items:center;font-size:1rem;flex-shrink:0;">🏛️</div>
+          <div>
+            <div style="font-weight:600;font-size:.9rem;color:var(--navy);">Gopalganj Science and Technology University</div>
+            <div style="font-size:.8rem;color:var(--muted);">BSc Chemistry · 2023 – Present</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:#e6f7f7;display:grid;place-items:center;font-size:1rem;flex-shrink:0;">🎥</div>
+          <div>
+            <div style="font-weight:600;font-size:.9rem;color:var(--navy);">YouTube Content Creator</div>
+            <div style="font-size:.8rem;color:var(--muted);">Educational Science Videos</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:#e6f7f7;display:grid;place-items:center;font-size:1rem;flex-shrink:0;">🔍</div>
+          <div>
+            <div style="font-weight:600;font-size:.9rem;color:var(--navy);">Open to Research & Internship</div>
+            <div style="font-size:.8rem;color:var(--muted);">Seeking collaborative opportunities</div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#" class="cv-btn" title="Download CV PDF">
+        <i class="fas fa-file-pdf"></i> Download Full CV (PDF)
+      </a>
+    </div>
+
+    <div class="reveal" style="display:flex;justify-content:center;">
+      <div style="position:relative;">
+        <img src="https://i.imgur.com/AZsoRj2.jpeg" alt="Omar Faruk"
+          style="width:300px;height:380px;object-fit:cover;border-radius:20px;box-shadow:0 20px 50px rgba(13,115,119,.18);border:4px solid var(--white);"
+          onerror="this.src='https://via.placeholder.com/300x380/0d7377/ffffff?text=OF'"/>
+        <div style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);background:var(--teal);color:#fff;padding:10px 24px;border-radius:999px;font-size:.82rem;font-weight:600;white-space:nowrap;box-shadow:0 6px 20px rgba(13,115,119,.3);">
+           BSc Chemistry Student
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── PERSONAL MESSAGES ── -->
+<div class="message-section">
+  <div style="max-width:1100px;margin:auto;">
+    <div class="section-label reveal">Personal Note</div>
+    <div class="section-title reveal">Message <span>From Me</span></div>
+    <div class="message-grid">
+      <div class="message-card reveal">
+        <div class="msg-lang"><i class="fas fa-globe"></i> English</div>
+        <p>Chemistry taught me that everything begins with curiosity. A single observation can unfold into a theory, and even the simplest reaction can reveal the hidden complexity of the world. As a Chemistry undergraduate, I view learning as a continuous experiment—sometimes predictable, often surprising, but always meaningful. Every concept I study deepens my understanding of matter, energy, and their connections. I am not only working toward a degree; I am building a mindset shaped by analysis, patience, and precision. My goal is to transform knowledge into impact through research, innovation, and real-world problem solving. For me, progress is not a destination—it is a continuous reaction of effort, curiosity, and persistence.</p>
+      </div>
+      <div class="message-card bangla reveal">
+        <div class="msg-lang"><i class="fas fa-language"></i> বাংলা</div>
+        <p>রসায়ন আমাকে শিখিয়েছে যে সবকিছুর শুরু হয় কৌতূহল থেকে। একটি ছোট পর্যবেক্ষণ একটি তত্ত্বে রূপ নিতে পারে, আর একটি সাধারণ বিক্রিয়াও পৃথিবীর গভীর জটিলতাকে প্রকাশ করতে পারে। একজন রসায়নের স্নাতক শিক্ষার্থী হিসেবে আমি শেখাকে একটি চলমান পরীক্ষা হিসেবে দেখি—কখনো পূর্বানুমানযোগ্য, কখনো বিস্ময়কর, তবে সবসময় অর্থবহ। আমার লক্ষ্য হলো জ্ঞানকে বাস্তব প্রভাবে রূপান্তর করা—গবেষণা, উদ্ভাবন এবং বাস্তব সমস্যার সমাধানের মাধ্যমে।</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-name">Omar Faruk<span>Chemistry Portfolio</span></div>
+      <p class="footer-desc">BSc Chemistry Student at Gopalganj Science and Technology University. Passionate about molecular science, research, and making chemistry accessible to everyone.</p>
+      <div class="social-links">
+        <a href="mailto:omarfaruk@email.com" title="Email"><i class="fas fa-envelope"></i></a>
+        <a href="https://github.com/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://youtube.com/" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://researchgate.net/" target="_blank" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
+      </div>
+    </div>
+    <div class="footer-right">
+      <ul class="footer-nav">
+        <li><a href="education.html">Education</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="about_me.html">About Me</a></li>
+        <li><a href="index.html#connect">Connect</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-copy">&copy; <span id="year"></span> Omar Faruk. All rights reserved. | BSc Chemistry · GSTU Bangladesh</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  });
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu   = document.getElementById('mobileMenu');
+  hamburgerBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburgerBtn.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  document.addEventListener('click', (e) => {
+    if (!mobileMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+      mobileMenu.classList.remove('open');
+      hamburgerBtn.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+  const reveals  = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80); });
+  }, { threshold: 0.08 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
