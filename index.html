@@ -6,11 +6,735 @@
 <title>Omar Faruk — Aspiring Organic Chemist</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-<link rel="stylesheet" href="styles.css"/>
+<style>
+/* ============================================================
+   Omar Faruk — Chemistry Portfolio · Shared Stylesheet
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap');
+
+:root {
+  --white: #ffffff;
+  --off-white: #f8f8f5;
+  --navy: #0b1f3a;
+  --teal: #0d7377;
+  --teal-light: #14a085;
+  --gold: #c8a45a;
+  --text: #1a1a2e;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── Scroll offset for fixed nav ── */
+section[id], .section-anchor { scroll-margin-top: 70px; }
+
+/* ── Molecular SVG background ── */
+.mol-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.045;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 66px;
+  transition: box-shadow .3s;
+}
+nav.scrolled { box-shadow: 0 4px 24px rgba(13,115,119,.12); }
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--navy);
+}
+.logo-hex { width: 36px; height: 36px; display: grid; place-items: center; }
+.logo-hex svg { width: 36px; height: 36px; }
+.logo-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.22rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.logo-name span {
+  color: var(--teal);
+  display: block;
+  font-size: .78rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.2rem;
+  list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: .875rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  position: relative;
+  padding-bottom: 3px;
+  transition: color .25s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--teal);
+  transition: width .3s;
+}
+.nav-links a:hover { color: var(--teal); }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: var(--teal); }
+.nav-links a.active::after { width: 100%; }
+
+/* ── HAMBURGER ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 1100;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--navy);
+  border-radius: 2px;
+  transition: all .3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile nav drawer */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 66px; left: 0; right: 0;
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  z-index: 999;
+  padding: 16px 20px 24px;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 8px 32px rgba(13,115,119,.12);
+  animation: slideDown .3s ease both;
+}
+.mobile-menu.open { display: flex; }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mobile-menu a {
+  text-decoration: none;
+  color: var(--navy);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 13px 16px;
+  border-radius: 10px;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mobile-menu a:hover,
+.mobile-menu a:active,
+.mobile-menu a.active { background: #e6f7f7; color: var(--teal); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  padding: 120px 5% 80px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+.hero-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+}
+.hero-left { position: relative; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #e6f7f7;
+  border: 1px solid #b2e5e5;
+  color: var(--teal);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+  animation: fadeUp .6s ease both;
+}
+.badge .dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--teal-light);
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+
+h1.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--navy);
+  animation: fadeUp .6s .1s ease both;
+}
+h1.hero-name em { color: var(--teal); font-style: normal; }
+
+.hero-title {
+  margin-top: 14px;
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.7;
+  animation: fadeUp .6s .2s ease both;
+}
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+  animation: fadeUp .6s .3s ease both;
+}
+.tag {
+  border: 1.5px solid var(--teal);
+  color: var(--teal);
+  font-size: .8rem;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 999px;
+  transition: all .25s;
+  cursor: default;
+}
+.tag:hover { background: var(--teal); color: #fff; }
+
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  margin-top: 36px;
+  animation: fadeUp .6s .4s ease both;
+}
+.btn-primary {
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-family: 'Outfit', sans-serif;
+  font-size: .9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .28s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-primary:hover { background: var(--navy); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(13,115,119,.28); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--navy);
+  border: 1.5px solid var(--border);
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-family: 'Outfit', sans-serif;
+  font-size: .9rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .25s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-outline:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+
+/* Profile ring */
+.hero-right {
+  display: flex;
+  justify-content: center;
+  animation: fadeUp .7s .15s ease both;
+}
+.profile-ring-wrap {
+  position: relative;
+  width: 320px; height: 320px;
+}
+.profile-ring {
+  position: absolute;
+  inset: -18px;
+  border-radius: 50%;
+  border: 1.5px dashed var(--teal);
+  animation: spin 18s linear infinite;
+  opacity: .5;
+}
+.profile-ring-2 {
+  position: absolute;
+  inset: -36px;
+  border-radius: 50%;
+  border: 1px dashed #c8a45a55;
+  animation: spin 30s linear infinite reverse;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.profile-img {
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid var(--white);
+  box-shadow: 0 20px 60px rgba(13,115,119,.18), 0 0 0 1px var(--border);
+  position: relative;
+  z-index: 2;
+}
+.atom-dot {
+  position: absolute;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--teal);
+  z-index: 3;
+}
+.atom-dot:nth-child(3) { top: -6px; left: 50%; transform: translateX(-50%); }
+.atom-dot:nth-child(4) { bottom: -6px; left: 50%; transform: translateX(-50%); background: var(--gold); }
+.atom-dot:nth-child(5) { left: -6px; top: 50%; transform: translateY(-50%); }
+.atom-dot:nth-child(6) { right: -6px; top: 50%; transform: translateY(-50%); background: var(--teal-light); }
+
+/* ── SECTION COMMONS ── */
+.section { padding: 90px 5%; position: relative; z-index: 1; }
+.section-label {
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 40px;
+}
+.section-title span { color: var(--teal); }
+
+/* ── PHOTO SWIPER ── */
+.swiper-outer {
+  overflow: hidden;
+  border-radius: 16px;
+  position: relative;
+}
+.swiper-track {
+  display: flex;
+  gap: 20px;
+  animation: autoSlide 22s linear infinite;
+  width: max-content;
+}
+.swiper-track:hover { animation-play-state: paused; }
+@keyframes autoSlide {
+  0%  { transform: translateX(0); }
+  100%{ transform: translateX(-50%); }
+}
+.swiper-card {
+  width: 240px; height: 300px;
+  border-radius: 14px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  position: relative;
+}
+.swiper-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+.swiper-card:hover img { transform: scale(1.06); }
+.swiper-card-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 12px;
+  background: linear-gradient(transparent, rgba(11,31,58,.75));
+  color: #fff;
+  font-size: .82rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity .3s;
+}
+.swiper-card:hover .swiper-card-label { opacity: 1; }
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0 5%;
+}
+
+/* ── MESSAGE FROM ME ── */
+.message-section {
+  padding: 90px 5%;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, #f0fafa 0%, #ffffff 60%);
+}
+.message-grid {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: start;
+}
+.message-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 4px 30px rgba(13,115,119,.06);
+  transition: transform .3s, box-shadow .3s;
+}
+.message-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(13,115,119,.12); }
+.message-card::before {
+  content: '"';
+  position: absolute;
+  top: 18px; left: 28px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem;
+  color: var(--teal);
+  opacity: .15;
+  line-height: 1;
+}
+.msg-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 16px;
+  border: 1px solid #b2e5e5;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #e6f7f7;
+}
+.message-card p { font-size: .95rem; line-height: 1.85; color: #374151; }
+.message-card.bangla p { font-size: 1rem; line-height: 2; }
+
+/* ── YOUTUBE ── */
+.yt-section { padding: 90px 5%; position: relative; z-index: 1; }
+.yt-scroll-area { position: relative; overflow: hidden; }
+.yt-track {
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 16px;
+  cursor: grab;
+}
+.yt-track:active { cursor: grabbing; }
+.yt-track::-webkit-scrollbar { height: 4px; }
+.yt-track::-webkit-scrollbar-track { background: var(--off-white); border-radius: 10px; }
+.yt-track::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 10px; }
+.yt-card {
+  flex-shrink: 0;
+  width: 360px;
+  scroll-snap-align: start;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--white);
+  transition: transform .3s, box-shadow .3s;
+  box-shadow: 0 4px 18px rgba(0,0,0,.05);
+}
+.yt-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,.12); }
+.yt-thumb { width: 100%; aspect-ratio: 16/9; border: none; }
+.yt-info { padding: 18px 20px; }
+.yt-info h4 { font-size: .95rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; line-height: 1.4; }
+.yt-info p { font-size: .8rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.yt-info p i { color: #ff0000; }
+
+/* ── EDUCATION ── */
+.edu-section { padding: 90px 5%; position: relative; z-index: 1; }
+.edu-grid {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 0;
+}
+.edu-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--teal);
+  border-radius: 14px;
+  padding: 30px;
+  transition: all .3s;
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+}
+.edu-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(13,115,119,.1); }
+.edu-year { font-size: .78rem; font-weight: 600; color: var(--teal); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px; }
+.edu-degree { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.edu-inst { font-size: .88rem; color: var(--muted); margin-bottom: 12px; font-weight: 500; }
+.edu-desc { font-size: .85rem; line-height: 1.7; color: #4b5563; }
+
+/* ── SKILLS ── */
+.skills-section { padding: 90px 5%; background: var(--off-white); position: relative; z-index: 1; }
+.skills-grid {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+.skill-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all .3s;
+}
+.skill-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(13,115,119,.1); border-color: var(--teal); }
+.skill-icon { font-size: 1.8rem; margin-bottom: 14px; }
+.skill-name { font-weight: 600; font-size: 1rem; color: var(--navy); margin-bottom: 10px; }
+.skill-bar { height: 5px; background: #e5e7eb; border-radius: 10px; overflow: hidden; }
+.skill-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--teal-light)); border-radius: 10px; width: 0%; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+.skill-pct { font-size: .78rem; color: var(--muted); margin-top: 6px; text-align: right; }
+
+/* ── RESEARCH ── */
+.research-section { padding: 90px 5%; position: relative; z-index: 1; }
+.research-grid { max-width: 1100px; margin: auto; display: grid; gap: 28px; }
+.research-card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 34px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 28px;
+  align-items: start;
+  background: var(--white);
+  transition: all .3s;
+}
+.research-card:hover { box-shadow: 0 10px 40px rgba(13,115,119,.1); transform: translateY(-3px); }
+.research-icon {
+  width: 56px; height: 56px;
+  background: #e6f7f7;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+.research-tag { font-size: .73rem; font-weight: 600; color: var(--teal); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+.research-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+.research-desc { font-size: .88rem; line-height: 1.75; color: #4b5563; }
+
+/* ── ABOUT ── */
+.about-section { padding: 90px 5%; background: var(--off-white); position: relative; z-index: 1; }
+.about-inner { max-width: 1100px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.about-desc { font-size: .95rem; line-height: 1.9; color: #374151; margin-top: 16px; }
+.cv-btn {
+  margin-top: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--navy);
+  color: #fff;
+  padding: 13px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: .9rem;
+  transition: all .3s;
+}
+.cv-btn:hover { background: var(--teal); transform: translateY(-2px); }
+
+/* ── CONNECT ── */
+.connect-section { padding: 90px 5%; position: relative; z-index: 1; }
+.connect-inner { max-width: 700px; margin: auto; text-align: center; }
+.connect-inner .section-title { margin-bottom: 16px; }
+.connect-subtitle { color: var(--muted); font-size: .95rem; margin-bottom: 40px; }
+.connect-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; }
+.connect-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  text-decoration: none;
+  color: var(--navy);
+  font-size: .9rem;
+  font-weight: 500;
+  transition: all .25s;
+  background: var(--white);
+}
+.connect-card i { font-size: 1.1rem; }
+.connect-card:hover { background: var(--navy); color: #fff; border-color: var(--navy); transform: translateY(-3px); }
+.connect-card.email:hover { background: var(--teal); border-color: var(--teal); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy);
+  color: rgba(255,255,255,.7);
+  padding: 52px 5% 36px;
+  position: relative;
+  z-index: 1;
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: start;
+}
+.footer-brand .logo-name { color: #fff; }
+.footer-brand .logo-name span { color: var(--teal-light); }
+.footer-desc { margin-top: 12px; font-size: .85rem; line-height: 1.7; max-width: 340px; }
+.social-links { display: flex; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+.social-links a {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.2);
+  display: grid;
+  place-items: center;
+  color: rgba(255,255,255,.7);
+  font-size: .9rem;
+  text-decoration: none;
+  transition: all .25s;
+}
+.social-links a:hover { background: var(--teal); border-color: var(--teal); color: #fff; transform: translateY(-2px); }
+.footer-right { text-align: right; }
+.footer-nav { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-nav a { color: rgba(255,255,255,.6); text-decoration: none; font-size: .88rem; transition: color .25s; }
+.footer-nav a:hover { color: var(--teal-light); }
+.footer-copy {
+  max-width: 1100px;
+  margin: 36px auto 0;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  font-size: .8rem;
+  text-align: center;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Section accent */
+.hex-accent {
+  position: absolute;
+  opacity: .04;
+  font-size: 18rem;
+  color: var(--teal);
+  font-weight: 700;
+  pointer-events: none;
+  user-select: none;
+  font-family: monospace;
+  right: -40px; top: -40px;
+  line-height: 1;
+  z-index: 0;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+}
+@media (max-width: 768px) {
+  nav { padding: 0 4%; height: 60px; }
+  .mobile-menu { top: 60px; }
+  .hero { padding: 90px 5% 60px; min-height: auto; }
+  .hero-inner { grid-template-columns: 1fr; gap: 36px; text-align: center; }
+  .hero-right { display: flex !important; justify-content: center; order: -1; }
+  .profile-ring-wrap { width: 200px; height: 200px; }
+  .profile-img { width: 200px; height: 200px; }
+  .profile-ring { inset: -12px; }
+  .profile-ring-2 { inset: -24px; }
+  .atom-dot { display: none; }
+  .hero-tags { justify-content: center; }
+  .hero-cta { justify-content: center; flex-wrap: wrap; }
+  h1.hero-name { font-size: 2.4rem; }
+  .message-grid { grid-template-columns: 1fr; gap: 24px; }
+  .about-inner { grid-template-columns: 1fr; gap: 40px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+  .footer-right { text-align: left; }
+  .research-card { grid-template-columns: 1fr; gap: 16px; }
+  .section, .message-section, .yt-section, .edu-section,
+  .skills-section, .research-section, .about-section,
+  .connect-section { padding: 60px 4%; }
+  .swiper-card { width: 180px; height: 230px; }
+  .yt-card { width: 280px; }
+  .connect-cards { gap: 10px; }
+  .connect-card { padding: 11px 18px; font-size: .82rem; }
+}
+@media (max-width: 480px) {
+  h1.hero-name { font-size: 2rem; }
+  .hero-title { font-size: .9rem; }
+  .btn-primary, .btn-outline { padding: 10px 20px; font-size: .85rem; }
+  .section-title { font-size: 1.6rem; }
+  .profile-ring-wrap { width: 170px; height: 170px; }
+  .profile-img { width: 170px; height: 170px; }
+  .edu-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
 
-<!-- Molecular background SVG -->
+<!-- ── MOLECULAR BACKGROUND ── -->
 <svg class="mol-bg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <pattern id="hex" x="0" y="0" width="80" height="92" patternUnits="userSpaceOnUse">
@@ -41,7 +765,7 @@
 
 <!-- ── NAVBAR ── -->
 <nav id="navbar">
-  <a href="index.html" class="logo">
+  <a href="#home" class="logo">
     <div class="logo-hex">
       <svg viewBox="0 0 40 46" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 2L37 11.5V30.5L20 40L3 30.5V11.5L20 2Z" stroke="#0d7377" stroke-width="2" fill="rgba(13,115,119,.08)"/>
@@ -51,10 +775,10 @@
     <div class="logo-name">Omar Faruk<span>Aspiring Organic Chemist</span></div>
   </a>
   <ul class="nav-links">
-    <li><a href="education.html">Education</a></li>
-    <li><a href="skills.html">Skills</a></li>
-    <li><a href="research.html">Research</a></li>
-    <li><a href="about_me.html">About Me</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#about">About Me</a></li>
     <li><a href="#connect" style="color:var(--teal);font-weight:600;">✉ Connect</a></li>
   </ul>
   <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
@@ -62,16 +786,19 @@
   </button>
 </nav>
 
+<!-- ── MOBILE MENU ── -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="index.html"><i class="fas fa-home" style="color:var(--teal);width:20px;text-align:center"></i> Home</a>
-  <a href="education.html"><i class="fas fa-graduation-cap" style="color:var(--teal);width:20px;text-align:center"></i> Education</a>
-  <a href="skills.html"><i class="fas fa-flask" style="color:var(--teal);width:20px;text-align:center"></i> Skills</a>
-  <a href="research.html"><i class="fas fa-microscope" style="color:var(--teal);width:20px;text-align:center"></i> Research</a>
-  <a href="about_me.html"><i class="fas fa-user" style="color:var(--teal);width:20px;text-align:center"></i> About Me</a>
+  <a href="#home"><i class="fas fa-home" style="color:var(--teal);width:20px;text-align:center"></i> Home</a>
+  <a href="#education"><i class="fas fa-graduation-cap" style="color:var(--teal);width:20px;text-align:center"></i> Education</a>
+  <a href="#skills"><i class="fas fa-flask" style="color:var(--teal);width:20px;text-align:center"></i> Skills</a>
+  <a href="#research"><i class="fas fa-microscope" style="color:var(--teal);width:20px;text-align:center"></i> Research</a>
+  <a href="#about"><i class="fas fa-user" style="color:var(--teal);width:20px;text-align:center"></i> About Me</a>
   <a href="#connect"><i class="fas fa-envelope" style="color:var(--teal);width:20px;text-align:center"></i> Connect</a>
 </div>
 
-<!-- ── HERO ── -->
+<!-- ═══════════════════════════════════════
+     SECTION 1 · HOME / HERO
+═══════════════════════════════════════ -->
 <section class="hero" id="home">
   <div class="hero-inner">
     <div class="hero-left">
@@ -93,14 +820,15 @@
       </div>
       <div class="hero-cta">
         <a href="#connect" class="btn-primary"><i class="fas fa-flask"></i> Let's Connect</a>
-        <a href="about_me.html" class="btn-outline"><i class="fas fa-file-alt"></i> View CV</a>
+        <a href="#about" class="btn-outline"><i class="fas fa-file-alt"></i> View CV</a>
       </div>
     </div>
     <div class="hero-right">
       <div class="profile-ring-wrap">
         <div class="profile-ring"></div>
         <div class="profile-ring-2"></div>
-        <img class="profile-img" src="https://i.imgur.com/AZsoRj2.jpeg" alt="Omar Faruk" onerror="this.src='https://via.placeholder.com/320x320/0d7377/ffffff?text=OF'"/>
+        <img class="profile-img" src="https://i.imgur.com/AZsoRj2.jpeg" alt="Omar Faruk"
+             onerror="this.src='https://via.placeholder.com/320x320/0d7377/ffffff?text=OF'"/>
         <div class="atom-dot"></div>
         <div class="atom-dot"></div>
         <div class="atom-dot"></div>
@@ -111,7 +839,7 @@
 </section>
 
 <!-- ── PHOTO GALLERY ── -->
-<section class="section reveal">
+<section class="section reveal" id="gallery">
   <div style="max-width:1100px;margin:auto;">
     <div class="section-label">Gallery</div>
     <div class="section-title">Moments &amp; <span>Memories</span></div>
@@ -123,14 +851,14 @@
       <div class="swiper-card"><img src="https://i.imgur.com/qOHL41w.jpeg" alt="Chemistry Central Team"/><div class="swiper-card-label">Chemistry Central Team</div></div>
       <div class="swiper-card"><img src="https://i.imgur.com/ZWneiwe.jpeg" alt="Experiment"/><div class="swiper-card-label">Political Vibe</div></div>
       <div class="swiper-card"><img src="https://images.unsplash.com/photo-1616400619175-5beda3a17896?w=480&q=80" alt="Study"/><div class="swiper-card-label">Study Time</div></div>
-      <div class="swiper-card"><img src="https://i.imgur.com/yQ1NSPk.jpeg" alt="Villege Work"/><div class="swiper-card-label">Villege Work</div></div>
+      <div class="swiper-card"><img src="https://i.imgur.com/yQ1NSPk.jpeg" alt="Village Work"/><div class="swiper-card-label">Village Work</div></div>
       <!-- Duplicate for seamless loop -->
       <div class="swiper-card"><img src="https://i.imgur.com/AZsoRj2.jpeg" alt="Omar Faruk"/><div class="swiper-card-label">Formal</div></div>
       <div class="swiper-card"><img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=480&q=80" alt="Chemistry Lab"/><div class="swiper-card-label">Chemistry Lab</div></div>
       <div class="swiper-card"><img src="https://i.imgur.com/qOHL41w.jpeg" alt="Chemistry Central Team"/><div class="swiper-card-label">Chemistry Central Team</div></div>
       <div class="swiper-card"><img src="https://i.imgur.com/ZWneiwe.jpeg" alt="Experiment"/><div class="swiper-card-label">Political Vibe</div></div>
       <div class="swiper-card"><img src="https://images.unsplash.com/photo-1616400619175-5beda3a17896?w=480&q=80" alt="Study"/><div class="swiper-card-label">Study Time</div></div>
-      <div class="swiper-card"><img src="https://i.imgur.com/yQ1NSPk.jpeg" alt="Villege Work"/><div class="swiper-card-label">Villege Work</div></div>
+      <div class="swiper-card"><img src="https://i.imgur.com/yQ1NSPk.jpeg" alt="Village Work"/><div class="swiper-card-label">Village Work</div></div>
     </div>
   </div>
 </section>
@@ -168,28 +896,28 @@
     <div class="yt-scroll-area">
       <div class="yt-track" id="ytTrack">
         <div class="yt-card">
-          <iframe class="yt-thumb" src="https://www.youtube.com/embed/B0GzHHFzYkI" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe class="yt-thumb" src="https://www.youtube.com/embed/B0GzHHFzYkI" title="Balancing Chemical Equations" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           <div class="yt-info">
             <h4>Balancing Chemical Equations</h4>
             <p><i class="fab fa-youtube"></i> Science With Faruk · YouTube</p>
           </div>
         </div>
         <div class="yt-card">
-          <iframe class="yt-thumb" src="https://www.youtube.com/embed/g8JSxC4OfoY" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe class="yt-thumb" src="https://www.youtube.com/embed/g8JSxC4OfoY" title="Limiting Reagent" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           <div class="yt-info">
             <h4>Limiting Reagent</h4>
             <p><i class="fab fa-youtube"></i> Science With Faruk · YouTube</p>
           </div>
         </div>
         <div class="yt-card">
-          <iframe class="yt-thumb" src="https://www.youtube.com/embed/0zM3nApSvMg" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe class="yt-thumb" src="https://www.youtube.com/embed/0zM3nApSvMg" title="Organic Chemistry" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           <div class="yt-info">
             <h4>Organic Chemistry</h4>
             <p><i class="fab fa-youtube"></i> Omar Faruk · YouTube</p>
           </div>
         </div>
         <div class="yt-card">
-          <iframe class="yt-thumb" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe class="yt-thumb" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Research Insights" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           <div class="yt-info">
             <h4>Research Insights</h4>
             <p><i class="fab fa-youtube"></i> Omar Faruk · YouTube</p>
@@ -202,14 +930,246 @@
 
 <div class="divider"></div>
 
-<!-- ── CONNECT ── -->
+<!-- ═══════════════════════════════════════
+     SECTION 2 · EDUCATION
+═══════════════════════════════════════ -->
+<section class="edu-section" id="education">
+  <div style="max-width:1100px;margin:auto;">
+    <div class="section-label reveal">Academic Journey</div>
+    <div class="section-title reveal">My <span>Education</span></div>
+    <p class="reveal" style="color:var(--muted);font-size:.95rem;margin-bottom:40px;max-width:600px;">A timeline of my academic milestones — from school to university, building a foundation in science and chemistry.</p>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-year">2023 – Present</div>
+        <div class="edu-degree">BSc in Chemistry (Honours)</div>
+        <div class="edu-inst">Gopalganj Science and Technology University</div>
+        <div class="edu-desc">Studying core areas of chemistry including physical, organic, inorganic and analytical chemistry. Actively engaged in laboratory practical sessions and academic research projects.</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-year">2019 – 2021</div>
+        <div class="edu-degree">Higher Secondary Certificate (HSC)</div>
+        <div class="edu-inst">Science Group</div>
+        <div class="edu-desc">Completed HSC with a strong background in Physics, Chemistry, Biology and Mathematics, building the foundation for advanced scientific studies.</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-year">Before 2019</div>
+        <div class="edu-degree">Secondary School Certificate (SSC)</div>
+        <div class="edu-inst">Science Group</div>
+        <div class="edu-desc">Completed SSC with distinction, demonstrating an early passion for science and analytical problem-solving that guided the academic path forward.</div>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div style="margin-top:70px;max-width:700px;">
+      <div class="section-label reveal">Academic Timeline</div>
+      <div style="position:relative;padding-left:28px;margin-top:24px;">
+        <div style="position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom, var(--teal), var(--gold));border-radius:2px;"></div>
+        <div class="reveal" style="position:relative;margin-bottom:36px;">
+          <div style="position:absolute;left:-24px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--teal);border:2px solid #fff;box-shadow:0 0 0 2px var(--teal);"></div>
+          <div style="font-weight:600;color:var(--navy);">BSc Chemistry — GSTU</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:2px;">2023 – Present · Currently enrolled</div>
+        </div>
+        <div class="reveal" style="position:relative;margin-bottom:36px;">
+          <div style="position:absolute;left:-24px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--teal-light);border:2px solid #fff;box-shadow:0 0 0 2px var(--teal-light);"></div>
+          <div style="font-weight:600;color:var(--navy);">HSC — Science Group</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:2px;">2019 – 2021 · Completed</div>
+        </div>
+        <div class="reveal" style="position:relative;">
+          <div style="position:absolute;left:-24px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 2px var(--gold);"></div>
+          <div style="font-weight:600;color:var(--navy);">SSC — Science Group</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:2px;">Before 2019 · Completed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     SECTION 3 · SKILLS
+═══════════════════════════════════════ -->
+<section class="skills-section" id="skills">
+  <div style="max-width:1100px;margin:auto;">
+    <div class="section-label reveal">Competencies</div>
+    <div class="section-title reveal">My <span>Skills</span></div>
+    <p class="reveal" style="color:var(--muted);font-size:.95rem;margin-bottom:40px;max-width:600px;">A breakdown of my chemistry skills, laboratory competencies, and technical proficiencies built throughout my academic journey.</p>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">⚗️</div>
+        <div class="skill-name">Organic Chemistry</div>
+        <div class="skill-bar"><div class="skill-fill" data-width="88%"></div></div>
+        <div class="skill-pct">88%</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🔬</div>
+        <div class="skill-name">Analytical Chemistry</div>
+        <div class="skill-bar"><div class="skill-fill" data-width="82%"></div></div>
+        <div class="skill-pct">82%</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🧪</div>
+        <div class="skill-name">Lab Techniques</div>
+        <div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div>
+        <div class="skill-pct">85%</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Spectroscopy</div>
+        <div class="skill-bar"><div class="skill-fill" data-width="75%"></div></div>
+        <div class="skill-pct">75%</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🧲</div>
+        <div class="skill-name">Physical Chemistry</div>
+        <div class="skill-bar"><div class="skill-fill" data-width="78%"></div></div>
+        <div class="skill-pct">78%</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">💻</div>
+        <div class="skill-name">Scientific Writing</div>
+        <div class="skill-bar"><div class="skill-fill" data-width="80%"></div></div>
+        <div class="skill-pct">80%</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🧫</div>
+        <div class="skill-name">Inorganic Chemistry</div>
+        <div class="skill-bar"><div class="skill-fill" data-width="76%"></div></div>
+        <div class="skill-pct">76%</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">📐</div>
+        <div class="skill-name">Data Analysis</div>
+        <div class="skill-bar"><div class="skill-fill" data-width="72%"></div></div>
+        <div class="skill-pct">72%</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">Research Methodology</div>
+        <div class="skill-bar"><div class="skill-fill" data-width="79%"></div></div>
+        <div class="skill-pct">79%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     SECTION 4 · RESEARCH
+═══════════════════════════════════════ -->
+<section class="research-section" id="research">
+  <div style="max-width:1100px;margin:auto;">
+    <div class="section-label reveal">Academic Work</div>
+    <div class="section-title reveal">Research &amp; <span>Projects</span> <span>(Demo)</span></div>
+    <p class="reveal" style="color:var(--muted);font-size:.95rem;margin-bottom:40px;max-width:620px;">At present, I do not have any research publications or academic projects to showcase. This section serves as a demonstration, and I am actively looking for opportunities to participate in research.</p>
+    <div class="research-grid">
+      <div class="research-card reveal">
+        <div class="research-icon">🧬</div>
+        <div>
+          <div class="research-tag">Ongoing Research</div>
+          <div class="research-title">Research Title</div>
+          <div class="research-desc">Describe your research project here — what problem it addresses, the methods you are using, and the expected outcomes. Update this with your actual work.</div>
+        </div>
+      </div>
+      <div class="research-card reveal">
+        <div class="research-icon">⚛️</div>
+        <div>
+          <div class="research-tag">Lab Project</div>
+          <div class="research-title">Lab Project Title</div>
+          <div class="research-desc">Describe your laboratory project — the chemical reactions, apparatus used, data collected, and any interesting findings. Replace this with your real project details.</div>
+        </div>
+      </div>
+      <div class="research-card reveal">
+        <div class="research-icon">📝</div>
+        <div>
+          <div class="research-tag">Academic Paper</div>
+          <div class="research-title">Paper / Seminar Topic</div>
+          <div class="research-desc">Mention any paper you have read, presented, or written. Include the journal, conference, or academic context where you contributed or plan to contribute.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collaboration CTA -->
+    <div class="reveal" style="margin-top:60px;background:linear-gradient(135deg,#e6f7f7,#f0fafa);border:1px solid #b2e5e5;border-radius:20px;padding:40px;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:12px;">🤝</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--navy);margin-bottom:10px;">Interested in Collaboration?</div>
+      <p style="color:var(--muted);font-size:.95rem;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto;">I am open to research partnerships, joint projects, and academic discussions. Reach out if you share an interest in chemistry and molecular science.</p>
+      <a href="#connect" class="btn-primary"><i class="fas fa-paper-plane"></i> Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     SECTION 5 · ABOUT ME
+═══════════════════════════════════════ -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+
+    <div class="reveal">
+      <div class="section-label">My Story</div>
+      <div class="section-title" style="margin-bottom:0;">A Passion for <span>Molecular Science</span></div>
+      <p class="about-desc">I am a BSc Chemistry student at Gopalganj Science and Technology University with a deep passion for understanding the molecular world. My academic journey has been shaped by curiosity, analytical thinking, and a desire to apply chemistry to solve real-world problems.</p>
+      <p class="about-desc" style="margin-top:14px;">Outside the lab, I create educational content on YouTube to make chemistry accessible to everyone. I am eager to engage in internships, collaborative research, and opportunities that bridge academia with practical impact.</p>
+
+      <!-- Highlights -->
+      <div style="margin-top:28px;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:#e6f7f7;display:grid;place-items:center;font-size:1rem;flex-shrink:0;">🏛️</div>
+          <div>
+            <div style="font-weight:600;font-size:.9rem;color:var(--navy);">Gopalganj Science and Technology University</div>
+            <div style="font-size:.8rem;color:var(--muted);">BSc Chemistry · 2023 – Present</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:#e6f7f7;display:grid;place-items:center;font-size:1rem;flex-shrink:0;">🎥</div>
+          <div>
+            <div style="font-weight:600;font-size:.9rem;color:var(--navy);">YouTube Content Creator</div>
+            <div style="font-size:.8rem;color:var(--muted);">Educational Science Videos</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:#e6f7f7;display:grid;place-items:center;font-size:1rem;flex-shrink:0;">🔍</div>
+          <div>
+            <div style="font-weight:600;font-size:.9rem;color:var(--navy);">Open to Research &amp; Internship</div>
+            <div style="font-size:.8rem;color:var(--muted);">Seeking collaborative opportunities</div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#" class="cv-btn" title="Download CV PDF">
+        <i class="fas fa-file-pdf"></i> Download Full CV (PDF)
+      </a>
+    </div>
+
+    <div class="reveal" style="display:flex;justify-content:center;">
+      <div style="position:relative;">
+        <img src="https://i.imgur.com/AZsoRj2.jpeg" alt="Omar Faruk"
+          style="width:300px;height:380px;object-fit:cover;border-radius:20px;box-shadow:0 20px 50px rgba(13,115,119,.18);border:4px solid var(--white);"
+          onerror="this.src='https://via.placeholder.com/300x380/0d7377/ffffff?text=OF'"/>
+        <div style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);background:var(--teal);color:#fff;padding:10px 24px;border-radius:999px;font-size:.82rem;font-weight:600;white-space:nowrap;box-shadow:0 6px 20px rgba(13,115,119,.3);">
+          BSc Chemistry Student
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     SECTION 6 · CONNECT
+═══════════════════════════════════════ -->
 <section class="connect-section" id="connect">
   <div class="connect-inner">
     <div class="section-label reveal" style="text-align:center;">Get In Touch</div>
     <div class="section-title reveal" style="text-align:center;">Let's <span>Connect</span></div>
     <p class="connect-subtitle reveal">Whether it's research collaboration, internships, or just a conversation about chemistry — I'd love to hear from you.</p>
     <div class="connect-cards reveal">
-      <a href="mailto:omarfaruk@email.com" class="connect-card email"><i class="fas fa-envelope" style="color:#ea4335"></i> Email Me</a>
+      <a href="mailto:omarfaruk7710@gmail.com" class="connect-card email"><i class="fas fa-envelope" style="color:#ea4335"></i> Email Me</a>
       <a href="https://github.com/omarfaruk-chem/" target="_blank" class="connect-card"><i class="fab fa-github"></i> GitHub</a>
       <a href="https://www.linkedin.com/in/omar-faruk-647547398/" target="_blank" class="connect-card"><i class="fab fa-linkedin" style="color:#0077b5"></i> LinkedIn</a>
       <a href="https://www.youtube.com/@omarfaruk98012/" target="_blank" class="connect-card"><i class="fab fa-youtube" style="color:#ff0000"></i> YouTube</a>
@@ -240,10 +1200,10 @@
     </div>
     <div class="footer-right">
       <ul class="footer-nav">
-        <li><a href="education.html">Education</a></li>
-        <li><a href="skills.html">Skills</a></li>
-        <li><a href="research.html">Research</a></li>
-        <li><a href="about_me.html">About Me</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#about">About Me</a></li>
         <li><a href="#connect">Connect</a></li>
       </ul>
     </div>
@@ -252,37 +1212,86 @@
 </footer>
 
 <script>
+  /* ── Year ── */
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ── Navbar scroll shadow ── */
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
   });
+
+  /* ── Hamburger / Mobile Menu ── */
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   const mobileMenu   = document.getElementById('mobileMenu');
-  hamburgerBtn.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('open');
-    hamburgerBtn.classList.toggle('open', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
+
   function closeMobileMenu() {
     mobileMenu.classList.remove('open');
     hamburgerBtn.classList.remove('open');
     document.body.style.overflow = '';
   }
+
+  hamburgerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburgerBtn.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // Close when clicking outside
   document.addEventListener('click', (e) => {
     if (!mobileMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) closeMobileMenu();
   });
+
+  // Close when a mobile link is clicked
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
+
+  /* ── Reveal on scroll + Skill bar animation ── */
   const reveals  = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80); });
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        const fill = entry.target.querySelector('.skill-fill');
+        if (fill) {
+          fill.style.width = fill.dataset.width;
+          observer.unobserve(entry.target);
+        }
+      }
+    });
   }, { threshold: 0.08 });
   reveals.forEach(r => observer.observe(r));
-  // YouTube drag-to-scroll
+
+  /* ── Active nav link on scroll ── */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = 'home';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  }, { passive: true });
+
+  /* ── YouTube drag-to-scroll ── */
   const ytTrack = document.getElementById('ytTrack');
   let isDown = false, startX, scrollLeft;
-  ytTrack.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - ytTrack.offsetLeft; scrollLeft = ytTrack.scrollLeft; ytTrack.style.cursor = 'grabbing'; });
+  ytTrack.addEventListener('mousedown', e => {
+    isDown = true;
+    startX = e.pageX - ytTrack.offsetLeft;
+    scrollLeft = ytTrack.scrollLeft;
+    ytTrack.style.cursor = 'grabbing';
+  });
   ytTrack.addEventListener('mouseleave', () => { isDown = false; ytTrack.style.cursor = 'grab'; });
   ytTrack.addEventListener('mouseup',    () => { isDown = false; ytTrack.style.cursor = 'grab'; });
-  ytTrack.addEventListener('mousemove',  e => { if (!isDown) return; e.preventDefault(); ytTrack.scrollLeft = scrollLeft - (e.pageX - ytTrack.offsetLeft - startX) * 2; });
+  ytTrack.addEventListener('mousemove',  e => {
+    if (!isDown) return;
+    e.preventDefault();
+    ytTrack.scrollLeft = scrollLeft - (e.pageX - ytTrack.offsetLeft - startX) * 2;
+  });
 </script>
 </body>
 </html>
